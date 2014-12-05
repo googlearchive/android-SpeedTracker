@@ -14,6 +14,7 @@ apply plugin: 'com.android.application'
 
 dependencies {
 
+    compile "com.google.android.gms:play-services-location:6.5.+"
 
     compile 'com.google.android.gms:play-services-wearable:6.5.+'
     compile 'com.android.support:support-v13:21.0.+'
@@ -33,6 +34,11 @@ android {
     compileSdkVersion 21
 
     buildToolsVersion "21.1.1"
+
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+    }
 
     buildTypes {
         release {

@@ -13,6 +13,7 @@ apply plugin: 'com.android.application'
 
 dependencies {
 
+    compile "com.google.android.gms:play-services-location:6.5.+"
 
     compile 'com.google.android.gms:play-services-wearable:6.5.+'
     compile 'com.android.support:support-v13:21.0.+'
@@ -36,6 +37,8 @@ android {
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
     }
 
     sourceSets {
