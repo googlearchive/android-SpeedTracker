@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
@@ -9,6 +9,12 @@ buildscript {
 }
 
 apply plugin: 'android-library'
+
+repositories {
+    jcenter()
+}
+
+
 
 // The sample build uses multiple directories to
 // keep boilerplate and common code separate from
@@ -21,7 +27,7 @@ List<String> dirs = [
 android {
     compileSdkVersion 21
 
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         minSdkVersion 18

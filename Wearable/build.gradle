@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
@@ -11,6 +11,10 @@ buildscript {
 apply plugin: 'com.android.application'
 
 
+
+repositories {
+    jcenter()
+}
 
 dependencies {
 
@@ -33,7 +37,7 @@ List<String> dirs = [
 android {
     compileSdkVersion 21
 
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         versionCode 1
