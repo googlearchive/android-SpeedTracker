@@ -145,8 +145,8 @@ public class WearableMainActivity extends WearableActivity implements
 
         // Enables app to handle 23+ (M+) style permissions.
         mGpsPermissionApproved =
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED;
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED;
 
         mGpsPermissionNeededMessage = getString(R.string.permission_rationale);
         mAcquiringGpsMessage = getString(R.string.acquiring_gps);
@@ -343,25 +343,35 @@ public class WearableMainActivity extends WearableActivity implements
                     .setInterval(UPDATE_INTERVAL_MS)
                     .setFastestInterval(FASTEST_INTERVAL_MS);
 
-            LocationServices.FusedLocationApi
-                    .requestLocationUpdates(mGoogleApiClient, locationRequest, this)
-                    .setResultCallback(new ResultCallback<Status>() {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                LocationServices.FusedLocationApi
+                        .requestLocationUpdates(mGoogleApiClient, locationRequest, this)
+                        .setResultCallback(new ResultCallback<Status>() {
 
-                        @Override
-                        public void onResult(Status status) {
-                            if (status.getStatus().isSuccess()) {
-                                if (Log.isLoggable(TAG, Log.DEBUG)) {
-                                    Log.d(TAG, "Successfully requested location updates");
+                            @Override
+                            public void onResult(Status status) {
+                                if (status.getStatus().isSuccess()) {
+                                    if (Log.isLoggable(TAG, Log.DEBUG)) {
+                                        Log.d(TAG, "Successfully requested location updates");
+                                    }
+                                } else {
+                                    Log.e(TAG,
+                                            "Failed in requesting location updates, "
+                                                    + "status code: "
+                                                    + status.getStatusCode() + ", message: " + status
+                                                    .getStatusMessage());
                                 }
-                            } else {
-                                Log.e(TAG,
-                                        "Failed in requesting location updates, "
-                                                + "status code: "
-                                                + status.getStatusCode() + ", message: " + status
-                                                .getStatusMessage());
                             }
-                        }
-                    });
+                        });
+                return;
+            }
         }
     }
 
