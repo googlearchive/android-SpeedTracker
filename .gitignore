@@ -5,3 +5,5 @@ build/
 # idea intellij
 *.iml
 .idea
+local.properties
+gradle.properties
