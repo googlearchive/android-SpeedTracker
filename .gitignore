@@ -8,3 +8,6 @@ build/
 local.properties
 gradle.properties
 api_key.xml
+
+# mac
+.DS_Store
