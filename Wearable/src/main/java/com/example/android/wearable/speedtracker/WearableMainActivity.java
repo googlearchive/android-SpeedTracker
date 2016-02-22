@@ -29,6 +29,7 @@ import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -326,6 +327,7 @@ public class WearableMainActivity extends WearableActivity implements
         }
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onConnected(Bundle bundle) {
 
@@ -343,35 +345,25 @@ public class WearableMainActivity extends WearableActivity implements
                     .setInterval(UPDATE_INTERVAL_MS)
                     .setFastestInterval(FASTEST_INTERVAL_MS);
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                LocationServices.FusedLocationApi
-                        .requestLocationUpdates(mGoogleApiClient, locationRequest, this)
-                        .setResultCallback(new ResultCallback<Status>() {
+            LocationServices.FusedLocationApi
+                    .requestLocationUpdates(mGoogleApiClient, locationRequest, this)
+                    .setResultCallback(new ResultCallback<Status>() {
 
-                            @Override
-                            public void onResult(Status status) {
-                                if (status.getStatus().isSuccess()) {
-                                    if (Log.isLoggable(TAG, Log.DEBUG)) {
-                                        Log.d(TAG, "Successfully requested location updates");
-                                    }
-                                } else {
-                                    Log.e(TAG,
-                                            "Failed in requesting location updates, "
-                                                    + "status code: "
-                                                    + status.getStatusCode() + ", message: " + status
-                                                    .getStatusMessage());
+                        @Override
+                        public void onResult(Status status) {
+                            if (status.getStatus().isSuccess()) {
+                                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                                    Log.d(TAG, "Successfully requested location updates");
                                 }
+                            } else {
+                                Log.e(TAG,
+                                        "Failed in requesting location updates, "
+                                                + "status code: "
+                                                + status.getStatusCode() + ", message: " + status
+                                                .getStatusMessage());
                             }
-                        });
-                return;
-            }
+                        }
+                    });
         }
     }
 
