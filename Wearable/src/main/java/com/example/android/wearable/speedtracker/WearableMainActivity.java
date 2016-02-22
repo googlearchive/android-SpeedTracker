@@ -29,6 +29,7 @@ import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -145,8 +146,8 @@ public class WearableMainActivity extends WearableActivity implements
 
         // Enables app to handle 23+ (M+) style permissions.
         mGpsPermissionApproved =
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED;
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED;
 
         mGpsPermissionNeededMessage = getString(R.string.permission_rationale);
         mAcquiringGpsMessage = getString(R.string.acquiring_gps);
@@ -326,6 +327,7 @@ public class WearableMainActivity extends WearableActivity implements
         }
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onConnected(Bundle bundle) {
 

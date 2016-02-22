@@ -1,0 +1,13 @@
+# gradle
+.gradle/
+build/
+
+# idea intellij
+*.iml
+.idea
+local.properties
+gradle.properties
+api_key.xml
+
+# mac
+.DS_Store
