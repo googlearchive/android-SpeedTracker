@@ -14,19 +14,18 @@
      limitations under the License.
 -->
 
-<android.support.wearable.view.BoxInsetLayout
+<android.support.wear.widget.BoxInsetLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/black"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    >
+    android:layout_width="match_parent" >
 
     <RelativeLayout
         android:id="@+id/frame_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        app:layout_box="left|bottom|right">
+        app:boxedEdges="left|bottom|right">
 
 
         <android.support.wearable.view.WearableListView
@@ -45,4 +44,4 @@
             android:layout_alignParentTop="true"
             android:text="@string/speed_limit_header"/>
     </RelativeLayout>
-</android.support.wearable.view.BoxInsetLayout>
+</android.support.wear.widget.BoxInsetLayout>
