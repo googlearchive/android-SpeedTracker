@@ -30,6 +30,7 @@ import com.google.android.gms.wearable.Wearable;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,7 +42,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.wearable.activity.WearableActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.wear.ambient.AmbientMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -60,7 +62,8 @@ import java.util.concurrent.TimeUnit;
  * and if the user exceeds the speed limit, it will turn red. In order to show the user that GPS
  * location data is coming in, a small green dot keeps on blinking while GPS data is available.
  */
-public class WearableMainActivity extends WearableActivity implements
+public class WearableMainActivity extends Activity implements
+        AmbientMode.AmbientCallbackProvider,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         ActivityCompat.OnRequestPermissionsResultCallback,
@@ -105,6 +108,12 @@ public class WearableMainActivity extends WearableActivity implements
 
     private boolean mWaitingForGpsSignal;
 
+    /**
+     * Ambient mode controller attached to this display. Used by the Activity to see if it is in
+     * ambient mode.
+     */
+    private AmbientMode.AmbientController mAmbientController;
+
     private GoogleApiClient mGoogleApiClient;
 
     private Handler mHandler = new Handler();
@@ -140,7 +149,8 @@ public class WearableMainActivity extends WearableActivity implements
          * in ambient mode, check this page:
          * https://developer.android.com/training/wearables/apps/always-on.html
          */
-        setAmbientEnabled();
+        // Enables Ambient mode.
+        mAmbientController = AmbientMode.attachAmbientSupport(this);
 
         mCalendar = Calendar.getInstance();
 
@@ -493,5 +503,36 @@ public class WearableMainActivity extends WearableActivity implements
      */
     private boolean hasGps() {
         return getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS);
+    }
+
+    @Override
+    public AmbientMode.AmbientCallback getAmbientCallback() {
+        return new MyAmbientCallback();
+    }
+
+    private class MyAmbientCallback extends AmbientMode.AmbientCallback {
+        /** Prepares the UI for ambient mode. */
+        @Override
+        public void onEnterAmbient(Bundle ambientDetails) {
+            super.onEnterAmbient(ambientDetails);
+
+            Log.d(TAG, "onEnterAmbient() " + ambientDetails);
+
+            // Changes views to grey scale.
+            mSpeedTextView.setTextColor(
+                    ContextCompat.getColor(getApplicationContext(), R.color.white));
+        }
+
+        /** Restores the UI to active (non-ambient) mode. */
+        @Override
+        public void onExitAmbient() {
+            super.onExitAmbient();
+
+            Log.d(TAG, "onExitAmbient()");
+
+            // Changes views to color.
+            mSpeedTextView.setTextColor(
+                    ContextCompat.getColor(getApplicationContext(), R.color.green));
+        }
     }
 }
