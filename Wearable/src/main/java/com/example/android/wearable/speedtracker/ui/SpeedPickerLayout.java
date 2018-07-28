@@ -60,8 +60,8 @@ public class SpeedPickerLayout extends LinearLayout
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mCircle = (ImageView) findViewById(R.id.circle);
-        mName = (TextView) findViewById(R.id.name);
+        mCircle = findViewById(R.id.circle);
+        mName = findViewById(R.id.name);
     }
 
     @Override
