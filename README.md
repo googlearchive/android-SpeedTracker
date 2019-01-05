@@ -3,7 +3,7 @@ Android SpeedTracker Sample
 ===================================
 
 Sample demonstrates recording location and speed with a Wear device in mind. Location is
-            retrieved via FusedLocatinProvider which retrieves coordinates from the phone or Wear
+            retrieved via FusedLocationProvider which retrieves coordinates from the phone or Wear
             depending on whether the phone is disconnected or not and whether the Wear device has a
             GPS chip.
 
