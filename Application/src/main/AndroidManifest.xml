@@ -3,10 +3,6 @@
     package="com.example.android.wearable.speedtracker" >
 
 
-    <uses-sdk
-        android:minSdkVersion="18"
-        android:targetSdkVersion="25" />
-
     <!-- BEGIN_INCLUDE(manifest) -->
 
     <!-- Note that all required permissions are declared here in the Android manifest.

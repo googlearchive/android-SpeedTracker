@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<android.support.wear.widget.BoxInsetLayout
+<androidx.wear.widget.BoxInsetLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/black"
@@ -44,4 +44,4 @@
             android:layout_alignParentTop="true"
             android:text="@string/speed_limit_header"/>
     </RelativeLayout>
-</android.support.wear.widget.BoxInsetLayout>
+</androidx.wear.widget.BoxInsetLayout>
